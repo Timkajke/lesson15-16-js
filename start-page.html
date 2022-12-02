@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookie example</title>
+    <!-- Последовательность подключения скриптов ВАЖНА. Сначал jquery, потом jquery-cookie -->
     <script src="jquery-3.6.1.min.js"></script>
     <script src="jquery-cookie.js"></script>
 </head>
@@ -22,6 +23,10 @@
             // добавление слушателя в jQuery (аналог addEventListener)
             $input.on('blur', function() {
                 let $myCity = $input.val(); // значение атрибута value (value - изначально пустое)
+                $.cookie('city', $myCity); // создаём куки с именем city и введённым значением, сессионная куки
+                // $.cookie('city', $myCity, { expires: 1 / 24 }); // куки на час
+                //$.removeCookie('city'); // удаляем куки по имени
+                //$.cookie('city'); // чтение значения куки
             });
         });
     </script>

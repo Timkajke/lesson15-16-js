@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Последовательность подключения скриптов ВАЖНА. Сначал jquery, потом jquery-cookie -->
+    <script src="jquery-3.6.1.min.js"></script>
+    <script src="jquery-cookie.js"></script>
+    <style>
+        .popup {
+            box-sizing: border-box;
+            position: fixed;
+            top: -400px;
+            left: 15%;
+            width: 70%;
+            z-index: 2;
+            padding: 16px;
+            background-color: lightblue;
+            box-shadow: 0 0 10px rgba(0, 0, 0.5);
+        }
+        .popup__bg {
+            display: none;
+            z-index: 1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: lightgrey;
+        }
+    </style>
+</head>
+
+<body>
+
+    <p>Hello, User!</p>
+    <input type="button" onclick="$.removeCookie('visited')" value="Delete cookie">
+    <div class="popup">
+        <div class="popup__header">
+            <h3>Подпишитесь на нашу страницу!</h3>
+        </div>
+        <div class="popup__body">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint quibusdam officiis, quisquam delectus
+                facere, inventore unde incidunt exercitationem animi officia voluptatem at amet? Autem maxime quis
+                commodi sapiente officiis error!</p>
+        </div>
+        <div class="popup__footer">
+            <form action="">
+                <input type="text" name="name" placeholder="Ваше имя">
+                <input type="email" name="email" placeholder="Ваше email">
+                <input type="submit" name="submit" placeholder="Подписаться">
+
+            </form>
+        </div>
+
+    </div>
+
+    <div class="popup__bg">
+
+    </div>
+
+    <script>
+        $(function () {
+
+            const $popup = $('.popup');
+            const $popupBg = $('.popup__bg');
+
+            function popupShow(popup, popupBg) {
+                popup.animate({
+                    top: "200px",
+                }, 1500);
+                popupBg.fadeIn(1000).on('click', () => {
+                    popup.animate({
+                        top: '-400px'
+                    }, 800, () => popupBg.fadeOut())
+                });
+            }
+
+            if ($.cookie('visited')) {
+                $('body').append('<h1>Вы у нас уже были</h1>');
+            }
+            else {
+                $.cookie('visited', true, { expires: 1});
+                popupShow($popup, $popupBg);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -5,8 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Последовательность подключения скриптов ВАЖНА. Сначал jquery, потом jquery-cookie -->
+    <script src="jquery-3.6.1.min.js"></script>
+    <script src="jquery-cookie.js"></script>
 </head>
 <body>
-    
+    <h1 id="test">Ваш город: </h1>
+    <script>
+        $(function() {
+            $('h1').append($.cookie('city'));
+        });
+    </script>
 </body>
 </html>
