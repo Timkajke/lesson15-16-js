@@ -1,32 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регулярные выражения</title>
 </head>
+
 <body>
+    <!-- шпаргалка по регулярным выражениям -->
+    <!-- https://www.exlab.net/tools/sheets/regexp.html -->
     <!-- в form надо добавить onsubmit="sendForm(event)" -->
-    <form action="" method="get" >
-        <input type="text" 
+    <form action="" method="get" onsubmit="sendForm(event, this)">
+        <!-- <input type="text" 
         name="first_name" 
         placeholder="Введите имя" 
         required 
         autofocus 
         autocomplete="off"
         pattern="^.{2,13}$"
-        >
-        <!-- шпаргалка по регулярным выражениям -->
-        <!-- https://www.exlab.net/tools/sheets/regexp.html -->
-        <input type="email" name="email" placeholder="Введите почту" required autocomplete="off">
+        >        
+        <input type="text" 
+        name="second_name" 
+        placeholder="Введите фамилию"
+        required
+        pattern="[a-zA-Zа-яА-Я]+$"
+        > -->
+        <!-- <input type="email" 
+        name="email" 
+        placeholder="Введите почту" 
+        required 
+        autocomplete="off"
+        > -->
+        <input type="text" name="test">
         <input type="submit">
     </form>
 
     <script>
-        // function sendForm(event) {
-        //     event.preventDefault(); // предотвращает стандартные события           
-        // }
+        function sendForm(event, ctx) {
+            // debugger;
+            event.preventDefault(); // предотвращает стандартные события  
+            // пример построения регулярки на JS
+            // const regEx = /pattern/g;
+            // const regExConstructor = new RegExp(pattern, 'g');
+            // Флаги:
+            // g - global, позволяет искать по всему тексту,
+            // не останавливаясь после первого нахождения
+            // i - используется для поиска без учёта регистра
+            // m - используется для многострочного поиска
+            // u - используется для поиска Unicode    
+            // console.log(ctx.elements[0].value);
+
+            // метод test возвращает true в случае совпадения регулярки 
+            // в противном возвращает false
+            // alert(/me+(ow)+/.test(ctx.elements[0].value));
+            // alert(/cats? says?/i.test(ctx.elements[0].value));
+
+            // метод match
+            // match() возвращает получившиеся совпадения 
+            // при сопоставлении строки с регулярным выражением.
+            // const regHello = /Hello/gi;
+            // console.log(ctx.elements[0].value.match(regHello));
+
+            const textInputValue = document.querySelector('input[name="test"]').value;
+            // alert(/.{1,32}@(gmail\.com|yandex\.ru)/.test(textInputValue));
+
+            // Задача: проверить, является ли значение числом с плавающей точкой/запятой
+            // const delimiter = prompt('Введите разделитель . или , ','.')
+            // alert(numeric(delimiter).test(textInputValue));
+
+            // Задача: изменить формат(ISO) записи даты
+            // const changedDate = '23.11.2022'.replace(/^(\d{2})\.(\d{2})\.(\d{4})$/, '$3-$2-$1');
+            // console.log(changedDate);
+        }
+
+        // ?= вперёд смотрящее
+        /Блюдо(?=11)/.test('Блюдо1'); // false
+        /Блюдо(?=11)/.test('Блюдо11'); // true
+        /Блюдо(?=11)/.test('Блюдо511'); // false
+
+        // Пример с кириллицей
+        const regExpStr1 = 'Ebnc gf29f, eq154a';
+        const regExpStr2 = 'Есть миг29а, ту154б';
+
+        const regExp = new RegExp(/(?:\d\d)+/, 'g');
+        console.log(regExpStr1.match(regExp));
+        
+
+        /* const numeric = (delimiter = '.') => 
+        {
+            return new RegExp(`^[+-]?([0-9]*\\${delimiter})?[0-9]+$`);
+        } */
+            
     </script>
 </body>
+
 </html>
